@@ -8,12 +8,22 @@ const Square = ({ value, onSquareClick }) => {
   );
 };
 export default function Board() {
-  const handleSquareClick = (i) => {
-    const nextSquares = squares.slice();
-    nextSquares[i] = "X";
-    setSquares(nextSquares);
-  };
+  const [xTurn, setXTurn] = useState(true);
   const [squares, setSquares] = useState(Array(9));
+
+  const handleSquareClick = (i) => {
+    if (squares[i]) {
+      return;
+    }
+    const nextSquares = squares.slice();
+    if (xTurn) {
+      nextSquares[i] = "X";
+    } else {
+      nextSquares[i] = "O";
+    }
+    setSquares(nextSquares);
+    setXTurn(!xTurn);
+  };
   return (
     <>
       <div className="board-row">
